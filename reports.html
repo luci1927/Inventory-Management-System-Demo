@@ -16,17 +16,22 @@
         }
 
         #datePicker {
-            padding-right: 30px; /* Add padding to avoid text overlap with icon */
-            width: 200px; /* Set a specific width for the input */
+            padding-right: 30px;
+            /* Add padding to avoid text overlap with icon */
+            width: 200px;
+            /* Set a specific width for the input */
         }
 
         .calendar-icon {
             position: absolute;
-            top: 40%;
-            left: 190px; /* Adjust the position */
+            top: 50%;
+            left: 190px;
+            /* Adjust the position */
             transform: translateY(-50%);
-            color: #888; /* Icon color */
-            pointer-events: none; /* Prevent clicks on the icon */
+            color: #888;
+            /* Icon color */
+            pointer-events: none;
+            /* Prevent clicks on the icon */
         }
     </style>
 </head>
@@ -59,21 +64,54 @@
         </nav>
     </header>
 
+
+
     <!-- Main Content -->
     <main class="container mt-5">
         <h2>Daily Report Updates</h2>
         <p>Here you can view daily reports about your inventory activities.</p>
 
         <!-- Date Picker -->
-        <div class="form-group row">
-            <label for="quantity" class=" col-form-label">Select Date</label>
-            <div class="col-sm-10">
-                <i class="fas fa-calendar-alt calendar-icon"></i>
-            <input type="text" id="datePicker" placeholder="Report Date">
+
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <i class="fas fa-calendar-alt calendar-icon"></i>
+                    <input type="text" id="datePicker" placeholder="Report Date">
+                </div>
+            </div>
+            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
+                <i class="fa-solid fa-file-export"></i> Export
+            </button>
+
+        </div>
+
+        <!-- Date Picker -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Add New Item</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-success"><i class="fa-solid fa-file-csv"></i> Export
+                            Csv</button>
+                        <button type="button" class="btn btn-danger"><i class="fa-solid fa-file-pdf"></i> Export
+                            Pdf</button>
+                        <button type="button" class="btn btn-secondary"><i class="fa-solid fa-file"></i> Export
+                            txt</button>
+                    </div>
+                </div>
             </div>
         </div>
-        
-        <!-- Date Picker -->
+        <!-- Modal -->
 
 
 
@@ -124,7 +162,7 @@
     <script src="assets/js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             flatpickr("#datePicker", {
                 dateFormat: "Y-m-d", // Customize date format here
                 minDate: "today",    // Optional: set minimum date to today
@@ -132,7 +170,7 @@
             });
         });
     </script>
-    
+
 </body>
 
 </html>
