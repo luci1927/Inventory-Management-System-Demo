@@ -1,66 +1,30 @@
-// app.js
+// script.js
 
-document.getElementById('loginForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    
-    // Hardcoded credentials (replace with server-side authentication later)
-    if (username === 'admin' && password === 'password') {
-        window.location.href = 'inventory.html';
-    } else {
-        document.getElementById('error-message').innerText = 'Invalid credentials';
-    }
-});
+document.addEventListener('DOMContentLoaded', function () {
+    // Inventory Form Submission
+    const inventoryForm = document.getElementById('inventoryForm');
+    const inventoryTableBody = document.querySelector('#inventoryTable tbody');
 
-let inventory = [];
+    inventoryForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        
+        const itemName = document.getElementById('itemName').value;
+        const quantity = document.getElementById('quantity').value;
 
-document.getElementById('inventoryForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    
-    const itemName = document.getElementById('itemName').value;
-    const quantity = parseInt(document.getElementById('quantity').value);
-    
-    if (itemName && quantity > 0) {
-        // Add item to the inventory array
-        inventory.push({ name: itemName, quantity });
-        updateInventoryTable();
-    }
-});
+        if (itemName && quantity) {
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${itemName}</td>
+                <td>${quantity}</td>
+                <td><button class="btn btn-danger btn-sm delete-btn">Delete</button></td>
+            `;
+            inventoryTableBody.appendChild(newRow);
+            inventoryForm.reset();
 
-function updateInventoryTable() {
-    const tableBody = document.querySelector('#inventoryTable tbody');
-    tableBody.innerHTML = '';  // Clear the table
-    
-    inventory.forEach((item, index) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${item.name}</td>
-            <td>${item.quantity}</td>
-            <td><button onclick="removeItem(${index})">Remove</button></td>
-        `;
-        tableBody.appendChild(row);
+            // Delete Button
+            newRow.querySelector('.delete-btn').addEventListener('click', function () {
+                newRow.remove();
+            });
+        }
     });
-}
-
-function removeItem(index) {
-    inventory.splice(index, 1);
-    updateInventoryTable();
-}
-
-function generateReport() {
-    const reportSection = document.getElementById('reportSection');
-    reportSection.innerHTML = '';  // Clear old report
-    
-    inventory.forEach(item => {
-        const reportItem = document.createElement('p');
-        reportItem.textContent = `Item: ${item.name}, Quantity: ${item.quantity}`;
-        reportSection.appendChild(reportItem);
-    });
-}
-
-// Optionally call this function on `inventory.html` page unload or a button click to generate the report
-
-
-
+});
